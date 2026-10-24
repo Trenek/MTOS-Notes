@@ -1,0 +1,40 @@
+\documentclass{book}
+
+\usepackage[margin=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{amsmath}
+
+% math things
+\usepackage{mathrsfs} % nice symbols
+
+% chapters etc
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\normalfont\huge\bfseries\filcenter}{\thechapter.\ }{0pt}{}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=cyan,
+    citecolor=green
+}
+
+\newcommand{\set}[1]{\{#1\}}
+
+\input{style}
+
+\title{Modelowanie Matematyczne i Teoria Optymalnego Sterowania}
+\date{August 2026}
+\author{Na podstawie wykładów \\ dr. hab. Anny Ochal}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\input{Wykład 1/main}
+
+\end{document}
