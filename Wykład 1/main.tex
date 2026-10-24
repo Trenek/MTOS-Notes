@@ -12,3 +12,28 @@
         \item[\listflag{IT}] Controllo
     \end{itemize}
 \end{funfact}
+
+\begin{definition}{Podstawowe Oznaczenia}{}{}
+    \begin{itemize}
+        \item $x = x(t)$ - wektor stanu
+        \item $u = u(t)$ - wektor sterujący
+        \item $z = z(t)$ - wektor zakłuceń
+    \end{itemize}
+\end{definition}
+
+\begin{definition}{Model Matematyczny}{}{}
+    Model charakteryzujący się opisywaniem procesu / dynamiki.
+    \[
+    \begin{cases}
+        \dot{x}(t) = f(t, x, u, z) \\
+        x(t_0) = x_0
+    \end{cases}
+    \]
+\end{definition}
+
+\begin{definition}{Funkcja celu / zysku / wygody (cel sterowania)}{}{}
+    $$J(u) = \int_{t_0}^{t_k} F(x(t), u(t), z(t)) dt$$
+\end{definition}
+
+\begin{example}{}{}{}
+\end{example}
