@@ -1,9 +1,16 @@
+\RequirePackage{silence}
+\WarningFilter{etex}{Extended allocation already in use}
+
 \documentclass{book}
 
 \usepackage[margin=2cm]{geometry}
-\usepackage[T1]{fontenc}
-\usepackage[polish]{babel}
+\usepackage[T1, T2A]{fontenc}
+\usepackage[main=polish, russian]{babel}
 \usepackage{amsmath}
+
+% flagi
+\usepackage{worldflags}
+\usepackage{enumitem}
 
 % math things
 \usepackage{mathrsfs} % nice symbols
@@ -23,6 +30,7 @@
 
 \newcommand{\set}[1]{\{#1\}}
 
+\RequirePackage{etex}
 \input{style}
 
 \title{Modelowanie Matematyczne i Teoria Optymalnego Sterowania}
