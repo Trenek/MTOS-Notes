@@ -27,7 +27,7 @@
   number within=chapter,
   crefname={definition}{Definition},
   Crefname={Definition}{Definition},
-]{definition}{Definition}{
+]{definition}{Definicja}{
   myStyle,
   colback=blue!5, colframe=blue!70!black, coltitle=white,
 }{def}
@@ -60,15 +60,20 @@
   colback=purple!5, colframe=red!50!black, coltitle=white,
 }{lem}
 
-\newtcbtheorem[number within=tcb@cnt@definition]{example}{Example}{
+\newtcbtheorem[number within=tcb@cnt@definition]{example}{Przykład}{
   myStyle,
   colback=green!5, colframe=green!50!black, coltitle=white
 }{ex}
 
-\newtcbtheorem[number within=tcb@cnt@axiom]{axexample}{Example}{
+\newtcbtheorem[number within=tcb@cnt@axiom]{axexample}{Przykład}{
   myStyle,
   colback=green!5, colframe=green!50!black, coltitle=white
 }{axex}
+
+\newtcbtheorem[number within=tcb@cnt@definition]{solution}{Rozwiązanie}{
+  myStyle,
+  colback=green!5, colframe=green!50!black, coltitle=white
+}{so}
 
 \newtcbtheorem[number within=tcb@cnt@theorem]{proof}{Proof}{
   myStyle,

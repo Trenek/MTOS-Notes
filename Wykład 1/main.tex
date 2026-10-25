@@ -35,5 +35,37 @@
     $$J(u) = \int_{t_0}^{t_k} F(x(t), u(t), z(t)) dt$$
 \end{definition}
 
-\begin{example}{}{}{}
+\begin{example}{Zagadnienie Sterowania Optymalnego w ekonomii}{}{}
+    Niech $x(t)$ określa zysk pewnej firmy w czasie $t$. Niech $u = u(t)$, gdzie $0 \leq u(t) \leq 1$ określa część zysku przeznaczoną na produkcję ($u = 0$ - całość przeznaczona na konsumpcję, $u = 1$ - całość przeznaczona na produkcję). \\
+    Naszym modelem matematycznym (przy danym współczynniku $k$) będzie: $$\dot{x} = k u x$$
+    Zadanie polega na znalezieniu $u = u(t)$ takiego, aby całkowita konsumpcja na pewnym odcinku czasowym $[0, t_1]$, czyli $$J(u) = \int^{t_1}_0 (1 - u(t)) x(t) dt$$
+    była jak największa.
+\end{example}
+
+\begin{example}{Zagadnienie czaso-optymalnego sterowania}{}{}
+    Niech: \begin{itemize}
+        \item $x$ oznacza kąt obrotu wału silnika, 
+        \item $t$ oznacza czas
+        \item $u$ oznacza napięcie przyłożone do zacisków silnika
+    \end{itemize}
+    Należy przeprowadzić wał silnika z położenia $x_0$ do położenia $x_1$ w najkrótszym czasie, przy czym napięcie $|u| \leq a$.
+    Nasz proces definiujemy następująco:
+    $$
+    \begin{cases}
+        \ddot{x}(t) = u(t) \\
+        \dot{x}(0) = 0 \\
+        \dot{x}(t_k) = 0 \\
+        x(0) = x_0 \\
+        x(t_k) = x_1 \\
+        |u(t)| \leq 0 \\
+    \end{cases}
+    $$
+    Nasze zadanie polega na wyznaczeniu takiej funkcji $u(t)$ aby $t_k$ było najmniejsze.
+
+    \begin{solution}{Feldbaum - Rozwiązanie typu bang-bang}{}{}
+        $$u(t) = \begin{cases}
+            a & \text{for } 0 \leq t \leq \frac{t_k}{2} \\
+            -a & \text{for } \frac{t_k}{2} \leq t \leq t_k \\
+        \end{cases}$$
+    \end{solution}
 \end{example}
