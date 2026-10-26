@@ -1,0 +1,135 @@
+\NeedsTeXFormat{LaTeX2e}[2020/10/01]
+\ProvidesPackage{tcbnotes}[2026/10/26 Styl Dokumentu (PL/EN)]
+
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{fouriernc}
+
+\DeclareMathAlphabet{\mathcal}{U}{txuprcal}{m}{n}
+
+\DeclareOption{english}{\def\tcbn@lang{english}}
+\DeclareOption{polish}{\def\tcbn@lang{polish}}
+\ExecuteOptions{english}
+\ProcessOptions*\relax
+
+\tcbset{
+    myStyle/.style={
+        enhanced,
+        fonttitle=\sffamily\bfseries,
+        fontupper=\ttfamily,
+        halign=left,
+        arc=3mm,
+        boxrule=2pt,
+        titlerule=0.5pt,
+        before skip=1.5em,
+        after skip=1.5em,
+        breakable,
+    },
+    noteStyle/.style={
+        myStyle, 
+        colback=magenta!5, 
+        colframe=green!80!black, 
+        coltitle=white
+    },
+    exampleStyle/.style={
+        myStyle, 
+        colback=green!5, 
+        colframe=green!50!black,
+        coltitle=white
+    },
+}
+
+\newcommand\tcbn@name[5]{
+  \@namedef{tcbn@env@#1}{#2}
+  \@namedef{tcbn@name@#1}{{#2}{#3}{#4}{#5}}}
+
+\newcommand\tcbn@flags{}
+\NewDocumentCommand\tcbn@flag{smm}{
+  \IfBooleanT{#1}{\def\tcbn@default{#2}}
+  \g@addto@macro\tcbn@flags{\tcbn@doflag{#2}{#3}}}
+
+\def\tcbn@env#1{\ifcsname tcbn@env@#1\endcsname\csname tcbn@env@#1\endcsname\else#1\fi}
+\def\tcbn@cnt#1{\ifcsname tcbn@env@#1\endcsname tcb@cnt@\tcbn@env{#1}\else#1\fi}
+
+\pgfkeys{/tcbn/numbering/.cd,
+  within/.code = {\edef\tcbn@init{number within=\tcbn@cnt{#1}}},
+  shared/.code = {\edef\tcbn@init{use counter from=\tcbn@env{#1}}},
+  flags/.code  = {\let\tcbn@init\relax},
+}
+
+\newcommand\tcbn@box[4]{
+  \@ifundefined{tcbn@name@#1}
+    {\PackageError{tcbnotes}{Brak nazwy ramki `#1' (jezyk: \tcbn@lang)}{}}
+    {\pgfkeys{/tcbn/numbering/.cd,#2}
+     \expandafter\expandafter\expandafter\tcbn@new
+       \csname tcbn@name@#1\endcsname{#3}{#4}}}
+
+\newcommand\tcbn@new[6]{
+  \ifx\tcbn@init\relax
+    \def\tcbn@doflag##1##2{
+      \edef\tcbn@init{number within=\tcbn@cnt{##2}}
+      \tcbn@theorem{#1@##1}{#2}{myStyle, coltitle=white, #5, tcbn/type=#1}{#6}}
+    \tcbn@flags
+    \expandafter\tcbn@switch\expandafter{\tcbn@default}{#1}
+  \else
+    \tcbn@theorem{#1}{#2}{myStyle, coltitle=white, #5, tcbn/type=#1}{#6}
+  \fi
+  \tcbn@crefname{#1}{#3}{#4}}
+\newcommand\tcbn@theorem{\expandafter\newtcbtheorem\expandafter[\tcbn@init]}
+\newcommand\tcbn@switch[2]{
+  \NewDocumentEnvironment{#2}{O{#1}}{\begin{#2@##1}}{\end{#2@##1}}
+  \NewDocumentEnvironment{#2*}{}{\begin{#2@#1*}}{\end{#2@#1*}}}
+
+\tcbset{tcbn/type/.code={\ifdefined\crefname\pgfkeysalso{/tcb/label type=#1}\fi}}
+\newcommand\tcbn@crefname[3]{
+  \ifdefined\crefname \crefname{#1}{#2}{#3}
+  \else \AtBeginDocument{\ifdefined\crefname\crefname{#1}{#2}{#3}\fi}
+  \fi}
+
+% id, env, title, cref_singular, cref_plural
+\@namedef{tcbn@names@english}{
+  \tcbn@name {definition}   {definition}    {Definition}    {definition}    {definitions}
+  \tcbn@name {axiom}        {axiom}         {Axiom}         {axiom}         {axioms}
+  \tcbn@name {theorem}      {theorem}       {Theorem}       {theorem}       {theorems}
+  \tcbn@name {proposition}  {proposition}   {Proposition}   {proposition}   {propositions}
+  \tcbn@name {proof}        {proof}         {Proof}         {proof}         {proofs}
+  \tcbn@name {reminder}     {reminder}      {Reminder}      {reminder}      {reminders}
+  \tcbn@name {funfact}      {funfact}       {Fun fact}      {fun fact}      {fun facts}
+  \tcbn@name {lemma}        {lemma}         {Lemma}         {lemma}         {lemmas}
+  \tcbn@name {note}         {note}          {Note}          {note}          {notes}
+  \tcbn@name {observation}  {observation}   {Observation}   {observation}   {observations}
+  \tcbn@name {example}      {example}       {Example}       {example}       {examples}
+}
+\@namedef{tcbn@names@polish}{
+  \tcbn@name {definition}   {definition}    {Definicja}     {definition}    {definitions}
+  \tcbn@name {axiom}        {axiom}         {Aksjomat}      {axiom}         {axioms}
+  \tcbn@name {theorem}      {theorem}       {Twierdzenie}   {theorem}       {theorems}
+  \tcbn@name {proposition}  {proposition}   {Propozycja}    {proposition}   {propositions}
+  \tcbn@name {proof}        {proof}         {Dowód}         {proof}         {proofs}
+  \tcbn@name {reminder}     {reminder}      {Przypomnienie} {reminder}      {reminders}
+  \tcbn@name {funfact}      {funfact}       {Ciekawostka}   {fun fact}      {fun facts}
+  \tcbn@name {lemma}        {lemma}         {Lemat}         {lemma}         {lemmas}
+  \tcbn@name {note}         {note}          {Uwaga}         {note}          {notes}
+  \tcbn@name {observation}  {observation}   {Obserwacja}    {observation}   {observations}
+  \tcbn@name {example}      {example}       {Przykład}      {example}       {examples}
+}
+\@nameuse{tcbn@names@\tcbn@lang}
+
+% flag, numeration
+\tcbn@flag {axiom}        {axiom}
+\tcbn@flag {definition}   {definition}
+\tcbn@flag {theorem}      {theorem}
+\tcbn@flag*{chapter}      {chapter}
+
+\tcbn@box {definition}   {within=chapter}     {colback=blue!5,   colframe=blue!70!black}  {def}
+\tcbn@box {axiom}        {within=chapter}     {colback=blue!5,   colframe=blue!50!red}    {ax}
+\tcbn@box {theorem}      {within=chapter}     {colback=orange!5, colframe=red!80!black}   {th}
+\tcbn@box {proposition}  {shared=theorem}     {colback=orange!5, colframe=red!60!black}   {pr}
+\tcbn@box {proof}        {within=theorem}     {colback=green!5,  colframe=green!50!red}   {pf}
+\tcbn@box {reminder}     {shared=definition}  {colback=green!5,  colframe=blue!100!black} {rm}
+\tcbn@box {lemma}        {shared=theorem}     {colback=purple!5, colframe=red!50!black}   {lem}
+\tcbn@box {funfact}      {flags}              {noteStyle}                                 {ff}
+\tcbn@box {note}         {flags}              {noteStyle}                                 {nt}
+\tcbn@box {observation}  {flags}              {noteStyle}                                 {ob}
+\tcbn@box {example}      {flags}              {exampleStyle}                              {ex}
+
+\endinput

@@ -81,8 +81,8 @@
         \draw[->] (-1, 0) -- (8, 0) node[below right] {$x$};
         \draw (0, 0.10) -- (0, -0.10) node[below=3pt] {$0$};
 
-        \draw[fill=white] (1.3, 0.3) circle (0.30);
-        \draw[fill=white] (2.7, 0.3) circle (0.30);
+        \draw[fill=white] (1.15, 0.15) circle (0.15);
+        \draw[fill=white] (2.85, 0.15) circle (0.15);
 
         \draw[fill=white] (1.0, 0.3) rectangle (3.0, 1.1);
 
@@ -120,7 +120,7 @@
     \end{itemize}
     Szukamy takiego sterowania $u$, że odpowiednie rozwiązanie spełniające warunki brzegowe $J$ przyjmuje najmniejszą wartość.
 
-    \begin{solution}{}{}{}
+    \begin{solution}{}{}{}gg
         $$x(t) - x(0) = \int^t_0 (1 + u(s)) ds$$
         Zauważmy, że $\int^1_0 x(t) dt = 1$, a także:
         \[\int^1_0 \frac{(u(t) - 1)^2}{2} dt = \int^1_0 (\frac{u^2(t)}{2} - \frac{2 u(t)}{2} + \frac{1}{2}) dt = \int^1_0 \frac{u^2(t)}{2} dt - \int^1_0 u(t) dt + \frac{1}{2} = J(u) - \frac{1}{2}\]
@@ -130,3 +130,7 @@
     Minimum - $J(u) = \frac{1}{2}$ (osiągnięte dla $u \equiv 0$ na [0, 1]) \\
     Optymalne rozwiązanie - $x(t) = \int^1_0 (1 + 1) dt = 2t$, gdzie $t \in [0, 1]$
 \end{example}
+
+\begin{definition}{Sterowanie optymalne}{}
+    Rozważ
+\end{definition}
