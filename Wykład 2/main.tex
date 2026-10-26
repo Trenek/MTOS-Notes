@@ -1,0 +1,117 @@
+\chapter{Wykład 2 - 19 X 2026}
+
+\begin{definition}{Prawie wszystkich}{}{}
+    Wyrażenie "prawie wszystkich"{} rozumiemy jako "wszystkich poza zbiorami miary 0"
+\end{definition}
+
+\begin{definition}{Funkcja mierzalna}{}{}
+    Funkcja aproxymowalna funkcjami schodkowymi \\
+    \centering
+    \begin{tikzpicture}
+        \draw[->] (-1, 0) --
+                  (0, 0) -- 
+                  (0, -1) -- 
+                  (1, -1) --
+                  (1, 0) --
+                  (2, 0) --
+                  (2, -1) --
+                  (3, -1) --
+                  (3, 0) --
+                  (4, 0) --
+                  (4, 1) --
+                  (5, 1) --
+                  (5, 2) --
+                  (6, 2) --
+                  (6, -1) --
+                  (7, -1) --
+                  (7, 0) --
+                  (8, 0) --
+                  (8, 1) --
+                  (9, 1)
+                  node[below right] {$x$};
+    \end{tikzpicture}
+\end{definition}
+
+\begin{definition}{Sformułowanie zadania sterowania}{}{}
+    Niech \begin{itemize}
+        \item $n, m \in \mathbb{N}_0$
+        \item $x(t), x_0 \in \mathbb{R}^n$ - wektor stanu / stanu początkowego
+        \item $u(t) \in \mathbb{R}^m$ - sterowanie (control)
+        \item $f \colon [0, \infty) \times \mathbb{R}^n \times \mathbb{R}^m \to \mathbb{R}^n$, gdzie $f = (f^1, \dots, f^n)$ - funkcja ciągła na $[0, \infty) \times \mathbb{R}^n \times U$ wraz z pochodnymi cząstkowymi $\frac{\partial f^i}{\partial x_j}$, $\frac{\partial f^i}{\partial u_k}$, gdzie $i, j = 1, \dots n$, a $k = 1, \dots, m$
+        \item $f^i \colon [0, \infty) \times \mathbb{R}^n \times \mathbb{R}^m \to \mathbb{R}$
+    \end{itemize}
+    
+    \[
+    \begin{cases}
+        \dot{x}(t) = f(t, x(t), u(t)) & \text{ - układ sterowania / równanie stanu} \\
+        x(0) = x_0 & \\
+    \end{cases}
+    \label{eq:controlEquation}
+    \]
+
+    Zbiór $\bigcup = [-1, 1]^m \subset \mathbb{R}^m$ nazwijmy zbiorem parametrów sterujących. \\
+    Niech $U_m[0, t_1] \coloneqq \set{ u \colon [0, t_1] \to \mathbb{R}^m : u \text{ jest mierzalna na } [0, t_1], u(t) \in \bigcup \text{ dla prawie wszystkich } t \in [0, t_1]  }$ \\
+    Oznaczmy $$U_m = \bigcup_{t_1 > 0} U_m[0, t_1]$$ \\
+\end{definition}
+
+\begin{definition}{Zbiór Celu (Target Set)}{}{}
+    Daa każdego $t \geq 0$ określmy rodzinę zbiorów celu $\mathcal{T}(t) \subset \mathbb{R}^n$, gdzie $\mathcal{T}(t)$ jest zbiorem domkniętym w $\mathbb{R}^n$.
+    \begin{example}{}{}{}
+        Wagon odrzutowy $\mathcal{T}(t) = \set{0} \subset \mathbb{R}^2$
+    \end{example}
+
+    Uwaga: Jeśli nie podano inaczej przyjmujemy $\mathcal{T}(t) = \set{0} \subset \mathbb{R}^n$
+\end{definition}
+
+\begin{definition}{Odpowiedź na sterowanie}{}{}
+    Dla zadanego sterowania $u \in U_m$ rozwiązanie równania różniczkowanego (\ref{eq:controlEquation}) nazywa się odpowiedzią na u. Oznaczamy je poprzez $x(t) = x(t; x_0, u(\cdot))$
+\end{definition}
+
+\begin{definition}{Zagadnienie sterowania (control problem)}{}{}
+    Dla zadanego $x_0$ znaleźć $t_1 > 0$ oraz $u \in U_m [0, t_1]$ takie, że odpowiedź $x(t_1) \in \mathcal{T}(t_1)$
+\end{definition}
+
+\begin{definition}{Zagadnienie sterowalności (controllability problem)}{}{}
+    Określić dane początkowe, które można doprowadzić do celu (to znaczy takie dany początkowe które są sterowalne (controllable), czyli określić te dane początkowe dla których istnieje pomyślne sterowanie)
+\end{definition}
+
+\begin{definition}{Zbiór sterowalności (controllable set)}{}{}
+    Niech $$\mathscr{C}(t_1) \coloneqq \set{x_0 \in \mathbb{R}^n \colon \exists_{u \in U_m} x(t_1; x_0, u(\cdot)) \in \mathcal{T}(t_1)}$$ będzie zbiorem tych stanów, które mogą być doprowadzone do celu w chwili $t_1$. \\
+    Zbiorem sterowalności nazywamy zbiór 
+    $$\mathscr{C} \coloneqq \bigcup_{t_1 > 0} \mathscr{C}(t_1)$$
+    Uwaga: Analogicznie do $\mathcal{C}$ będziemy określać $\mathscr{C}_{PC}, \mathscr{C}_BB, \dots$ w odniesieniu do odpowiednich klas sterowań.
+\end{definition}
+
+\begin{definition}{Całkowita Sterowalność}{}{}
+    Mówimy, że sterowalność jest całkowita, gdy $$\mathscr{C} = \mathbb{R}^n$$
+\end{definition}
+
+\begin{definition}{Lokalna Sterowalność}{}{}
+    Mówimy, że sterowalność jest lokalna, gdy $$0 \in int \mathscr{C}$$
+\end{definition}
+
+\begin{definition}{Klasa Sterowań Kawałkami Stałych (piecewise constant controls)}{}{}
+    Niech $U_{PC}[0, t_1] = \set{u \in U_m[0, t_1] \colon u \text{ jest kawałkami stała na } [0, t_1]}$. Klasą sterowań kawałkami stałych nazywamy zbiór 
+    $$U_{PC} = \bigcup_{t > 0} U_{PC}[0, t_1]$$
+\end{definition}
+
+\begin{definition}{Klasa sterowania bang-bang (bang-bang controls)}{}{}
+    Niech $U_{BB}[0, t_1] = \set{u \in U_m[0, t_1] \colon u^k(t) = 1 \text{ dla prawie wszystkich } t \in [0, t_1]}$. Klasą sterowań bang-bang nazywamy zbiór 
+    \[U_{BB} = \bigcup_{t > 0} U_{BB}[0, t_1]\]
+\end{definition}
+
+\begin{definition}{Zbiór osiągalny (reachable set)}{}{}
+    Niech punkt początkowy $x_0 \in \mathbb{R}^n$ będzie ustalony. Zbiór osiągalny w chwili $t_1 > 0$ definiujemy jako $$K(t_1, x_0) = \set{x = x(t_1; x_0, u(\cdot)) \in \mathbb{R}^n \colon u \in U_m[0, t_1]}$$
+    Analogicznie definiujemy $K_{PC}(t_1, x_0), K_{BB}(t_1, x_0), \dots$
+\end{definition}
+
+\begin{definition}{Stożek osiągalności (reachable cone)}{}{}
+    Niech punkt początkowy $x_0 \in \mathbb{R}^n$ będzie ustalony. Stożek osiągalności definiujemy jako zbiór postaci $$\mathcal{RC}(x_0) = \set{(t, x(t; x_0, u(\cdot))) \in [0, \infty] \times \mathbb{R}^n \colon t \geq 0, u \in U_m}$$
+\end{definition}
+
+\begin{note}{Podstawowe zadania teorii sterowalności}{}{}
+    \begin{itemize}
+        \item Wyznaczyć i opisać własności zbioru sterowalności / osiągalności dla danej klasy sterowań
+        \item Zbadać zależności między zbiorami sterowalności / osiągalności odpowiadającej różnym klasą sterowań
+    \end{itemize}
+\end{note}
