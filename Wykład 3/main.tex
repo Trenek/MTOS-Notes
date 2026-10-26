@@ -1,0 +1,144 @@
+\chapter{Wykład 3 - 26 X 2026}
+
+\section{Teoria sterowalności}
+
+\begin{definition}{NLA}{}
+    Niech $f \colon \mathbb{R}^n \times \mathbb{R}^m \to \mathbb{R}^n$ będzie klasy $\mathscr{C}^1$ oraz niech $f(0, 0)$. (NLA) definiujemy jako
+
+    \begin{equation}
+        \begin{cases}
+            \dot{x} = f(x(t), u(t))
+        \end{cases}
+    \end{equation}
+    \label{eq:NLA}
+\end{definition}
+
+\begin{lemma}{}{}
+    Dla układu sterowania (\ref{eq:NLA}) zachodzą własności: \begin{enumerate}
+        \item Jeśli sterowanie $u \colon [0, t_1] \ni t \to u(t) \in \mathbb{R}^n$ przeprowadza (\ref{eq:NLA}) z punktu $x_0$ do punktu 0 na przedziale $[0, t_1]$, to $\forall_{t_0 > 0}$ sterowanie $v \colon [t_0, t_0 + t_1] \ni t \to u (t - t_0) \to \mathcal{R}^m$ przeprowadza (\ref{eq:NLA}) z punktu $x_0$ do punktu 0 na przedziale $[t_0, t_0 + t_1]$
+        \item Jeśli $x_0 \in \mathscr{C}$, gdzie $x_0 \neq 0$, tzn. $\exists_{t_1 > 0} \exists_{u \in U} \colon x(t_1; x_0, u) = 0$ to $\forall_{t_* \in (0, t_1)} \exists_{t_2 > 0} \exists_{\tilde{u} \in U} \colon x(t_2; x(t_*; x_0, u), \tilde{u}) = 0$, tzn $x(t_*; x_0, u) \in \mathscr{C}$
+        \item Jeśli $x_u$ jest rozwiązaniem (\ref{eq:NLA}), to odpowiadające sterowaniu $u$ spełniające warunku $x_u(0) = x_0$, $x_u(t_1) = x_1$, to $z(t) = x(t_1 - t)$ jest rozwiązaniem równania z odwróconym czasem \begin{equation}
+            \dot{z}(t) = -f(z(t), \tilde{u}(t))
+        \end{equation}
+            które odpowiada sterowaniu $\tilde{u}(t) = u(t_1 - t)$ i spełniającym warunki $z(0) = x_1$, $z(t_1) = x_0$
+    \end{enumerate}
+    ????????????? Obrazki do dorysowania
+
+    \begin{proof}{}{}
+        \begin{ad}{}{}
+            Niech $x_u$ będzie trajektorią układu (\ref{eq:NLA}) odpowiadającego u. $$\begin{cases}
+                x_u(0) = x_0 \\
+                x_u(t_1) = 0
+            \end{cases}$$
+            Weźmy $y(t) = x(t - t_0)$. Wtedy $\dot{y}(t) = \dot{x}(t - t_0) = f(x(t - t_0), u(t - t_0)) = f(y(t), v(t))$. \\
+            Ponadto $y(t_0) = x(t_0 - t_0) = x(0) = x_0$, $y(t_0 + t_1) = x(t_0 + t_1 - t_0) = x(t_1) = 0$
+        \end{ad}
+        \begin{ad}{}{}
+            Weźmy $\tilde{u} \colon [0, t_1 - t_*] \ni t \to u(t + t_*) \in U$. Wtedy $y \colon [0, t_1, - t_*] \ni t \to x(t + t_*; x_0, u) \in \mathbb{R}^n$ jest rozwiązaniem \ref{eq:NLA} odpowiadającym sterowaniu $\tilde{u}$, bo: \\
+            $\dot{y}(t) = \dot{x}(t + t_*; x_0, u) = f(x(t + t_*; x_0, u), u(t + t_*)) = f(y(t), \tilde{u}(t))$ \\
+            $y(0) = x(t_*; x_0, u) = x_u(t_*)$ \\
+            $y(t_1 - t_*) = x(t_1 - t_* + t_*; x_0, u) = x_u(t_1) = 0$
+        \end{ad}
+        \begin{ad}{}{}
+            Niech $t \in [0, t_1]$
+            $$\dot{z}(t) = \frac{d}{dt} x(t_1 - t) = -dot{x}(t_1 - t) = - f (x(t_1 - t), u(t_1 - t)) = - f(z(t), \tilde{u}(t))$$
+            $$z(0) = x(t_1 - 0) = x(t_1) = x_1$$
+            $$z(t_1) = x(t_1 - t_1) = x(0) = x_0$$
+        \end{ad}
+    \end{proof}
+\end{lemma}
+
+\begin{theorem}{}{}
+    Zbiór sterowalności $\mathscr{C}$ jest otwarty $\iff 0 \in \text{int} \mathscr{C}$
+    \begin{proof}{}{}
+        "$\implies$"{} oczywiste, bo $0 \in \mathscr{C}$ \\
+        "$\impliedby$"{} Niech $0 \in \text{int} \mathscr{C}$. Wtedy $\exists_{\delta > 0} \colon K(0, \delta) \subset \mathscr{C}$. Niech $x_{*} \in \mathscr{C}$ będzie dowolnym punktem. Chcemy pokazać, że $\exists K(x_*, \varrho) \subset \mathscr{C}$ (czyli $\exists \varrho = \varrho(x_*) > 0$). \\
+        $\exists_{t_* > 0} \exists_{u_* \in U} \colon x(t_*; x_*, u_*) = 0$. \\
+        Ponieważ $f \in \mathscr{C}^1$, więc z ciągłej zależności rozwiązania (\ref{eq:NLA}) od danych początkowych wynika, że $\exists {\varrho > 0} \forall_{\overline{x} \in K(x_*, \varrho)} x(t_*; \overline{x}, u_*) \in K(0, \delta) \subset \mathscr{C}$, więc $\exists \tilde{u} \in U$ które przeprowadza punkt $x(t_*; \overline{x}, u_*)$ do punktu 0 na przedziale $[0, \tilde{t}]$ \\
+
+        Zatem sterowanie $u(t) = \begin{cases}
+            u_*(t) & t \in [0, t_*] \\
+            \tilde{u}(t - t_*) & t \in [t_*, t_* + \tilde{t}]
+        \end{cases}$
+        
+        przeprowadza punkt $\overline{x}$ do punktu 0, czyli $\overline{x} \in \mathscr{C}$ i wobec dowolności $\overline{x} \in K{x_*, \varrho}$ mamy $K(x_*, \varrho) \subset \mathscr{C}$ co kończy dowód
+    \end{proof}
+\end{theorem}
+
+\section{Sterowalność układów liniowych}
+
+\begin{definition}{LA}{}
+    Niech $A \in \mathbb{R}^{n \times m}, B \in \mathbb{R}^{n \times m}$ będą stałymi macierzami.
+    Rozważmy równanie
+    \begin{equation}
+        \dot{x}(t) = Ax(t) + Bu(t)
+    \end{equation}
+    \label{eq:LA}
+    Zbadamy pewne własności zbioru sterowalności $\mathscr{C}(t_1)$
+    $$x(0) = x_0 \implies x(t; x_0, u) = X(t) x_0 + X(t) \int_0^t X_{-1}(s)Bu(s) ds$$
+    $$X(t) = e^{tA}$$
+    Niech $u \in U[0, t_1]$, $t_1 > 0$
+    $$x_0 \in \mathscr{C}(t) \iff \exists_{u \in U[0, t_1]}$$
+    $$x_0 = - \int_0^{t_1} X^{-1}(s) Bu(s) ds$$
+    $0 = x(t_1; x_0, u) = X(t_1) x_0 + X(t_1) \int_0^{t_1} X^{-1} (s) Bu(s) ds \implies X^{-1}(t_1)/X(t_1)x_0 = - X(t_1) \int_0^{t_1} X^{-1}(s) Bu(s) ds$
+\end{definition}
+
+\begin{theorem}{}{}
+    Zbiór sterowalności $\mathscr{C}$ dla \ref{eq:LA} jest symetryczny i wypukły
+
+    \begin{example}[theorem]{}{}
+        \[
+            \begin{cases}
+                \dot{x_1}(t) = 0 \\
+                \dot{x_2}(t) = u(t) \\
+            \end{cases} \iff
+            \begin{bmatrix}
+                x_1 \\
+                x_2
+            \end{bmatrix}' = \begin{bmatrix}
+                0 & 0 \\
+                0 & 0 \\
+            \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix}
+                0 \\ 1
+            \end{bmatrix} u
+        \]
+
+        \[
+            x = \begin{bmatrix}
+                x_1 \\ x_2
+            \end{bmatrix}, 
+            x_0 = \begin{bmatrix}
+                x_{01} \\ x_{02}
+            \end{bmatrix}
+        \]
+
+        Dla warunku początkowego $x(0) = x_0$ mamy rozwiązanie $\begin{cases} 
+            x_1(t) = x_{01} \\
+            x_2(t) = x_{02} + \int_0^t u(s) ds
+        \end{cases}$
+    
+        Zbiór sterowalności ma postać $\mathscr{C} = \set{(x_1, x_2) \in \mathbb{R}^2 \colon x_1 = 0, x_2 \in \mathbb{R}}$, przy czym $\text{int} \mathscr{C} \neq \emptyset$.
+
+        Dla 
+
+        $\begin{cases} 
+            x_1(t_1) = 0 = x_{01} \\
+            x_2(t_1) = 0 = x_{02} + \int_0^{t_1} u(s) ds
+        \end{cases} \implies
+        x_{02} = -\int_0^{t_1} u(s) ds$
+
+        Dla $|u| \leq 1$ mamy $|x_{02}| \leq \int_0^{t_1}|u(s)| ds \leq t_1$, a więc $-t_1 \leq x_{02} \leq t_1$, gdzie $t_1 \to \infty$
+    \end{example}
+\end{theorem}
+
+\begin{definition}{Macierz sterowalności (controllability matrix)}{}
+    Macierz sterowalności dla układu (\ref{eq:LA}) nazywamy macierz $\mathcal{M} \in \mathscr{M}_{n \times (nm)}$ postaci $\mathcal{M} = [B, AB, A^2B, \dots, A^{n-1}B] \in \mathbb{R}^{n \times nm}$
+\end{definition}
+
+\begin{theorem}{}{}
+    \begin{enumerate}
+        \item $\text{rank} M = n$
+        \item $0 \in \text{int} \mathscr{C}$
+        \item $\mathscr{C}$ jest otwarty w $\mathbb{R}^n$
+    \end{enumerate}
+\end{theorem}
