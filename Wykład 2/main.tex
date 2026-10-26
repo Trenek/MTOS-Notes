@@ -115,3 +115,35 @@
         \item Zbadać zależności między zbiorami sterowalności / osiągalności odpowiadającej różnym klasą sterowań
     \end{itemize}
 \end{note}
+
+\section{Sterowanie optymalne}
+
+\begin{definition}{Sterowanie optymalne}{}{}
+    Rozważmy układ sterowania \begin{equation}
+        \begin{cases}
+            \dot{x}(t) = f(t, x(t), u(t)) \\
+            x(0) = x_0
+        \end{cases}
+    \end{equation}
+    z funkcjonałem postaci $J(u) = \int_0^{t_u} F(t, x_u(t), u(t)) dt$, gdzie $F \colon [0, \infty) \times \mathbb{R}^n \times \mathbb{R}^m \to \mathbb{R}$, gdzie $J$ jest określony na zbiorze $\Delta = \set{ u \in U \colon \exists_{t_u > 0} u \in U[0, t_u] \land x(t_u; x_o, u) = 0 }$ \\
+    Niech $J \colon \Delta \to \mathbb{R}$ będzie funkcjonaem kosztu / wskaźnikiem jakości.
+\end{definition}
+
+\begin{definition}{Sterowanie Dopuszczające (Admissible control)}{}
+    Sterowanie Dopuszczające nazywamy sterowaniem $u \in \Delta$
+\end{definition}
+
+\begin{definition}{Zagadnienie sterowania optymalnego}{}
+    Zagadnienie sterowania optymalnego polega na znalezieniu $u^* \in \Delta$ takiego, że 
+    $$\forall_{u \in \Delta} J(u^*) \leq J(u)$$
+    albo odpowiednio
+    $$\forall_{u \in \Delta} J(u^*) \geq J(u)$$
+\end{definition}
+
+\begin{note}{Podstawowe zadania teorii sterowania optymalnego}{}
+    \begin{itemize}
+        \item istnienie sterowania optymalnego
+        \item matematyczna charakteryzacja sterowania optymalnego
+        \item wyznaczenie sterowania optymalnego
+    \end{itemize}
+\end{note}
